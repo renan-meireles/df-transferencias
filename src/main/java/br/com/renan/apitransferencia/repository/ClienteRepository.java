@@ -9,5 +9,5 @@ import br.com.renan.apitransferencia.model.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-	Optional<Cliente> findByNumeroConta(Long numeroConta);
+	Optional<Cliente> findByNumeroConta(String numeroConta);
 }

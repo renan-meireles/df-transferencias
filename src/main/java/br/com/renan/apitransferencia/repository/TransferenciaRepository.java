@@ -9,5 +9,5 @@ import br.com.renan.apitransferencia.model.Transferencia;
 
 @Repository
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long>{
-	List<Transferencia> findAllByContaOrigemOrderByDataTransferenciaDesc(Long contaOrigem);
+	List<Transferencia> findAllByContaOrigemOrderByDataTransferenciaDesc(String contaOrigem);
 }

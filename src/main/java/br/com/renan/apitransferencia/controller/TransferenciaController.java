@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/v1/transference")
+@RequestMapping("/api/v1/transferences")
 @Tag(name = "Transfêrencia", description = "Endpoints com as operações ref. transfêrencias e historico de transfêrencias")
 public class TransferenciaController {
 
@@ -48,7 +48,7 @@ public class TransferenciaController {
 			@ApiResponse(responseCode = "404", description = "Transfêrencias feitas por este cliente não foram encontradas na base de dados.") })
 	@GetMapping("/account/{contaOrigem}")
 	public ResponseEntity<List<Transferencia>> buscaPorConta(
-			@Parameter(description = "Numero da Conta do Cliente de Origem da transfêrencia. Deve ser informado.", required = true) @PathVariable Long contaOrigem) {
+			@Parameter(description = "Numero da Conta do Cliente de Origem da transfêrencia. Deve ser informado.", required = true) @PathVariable String contaOrigem) {
 		return ResponseEntity.ok().body(transferenciaService.buscaTransferenciaPorConta(contaOrigem));
 	}
 

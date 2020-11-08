@@ -25,7 +25,7 @@ public class TransferenciaService {
 	private static final String ok = "SUCCESS";
 	private static final String falha = "FAILED";
 
-	public List<Transferencia> buscaTransferenciaPorConta(Long contaOrigem) {
+	public List<Transferencia> buscaTransferenciaPorConta(String contaOrigem) {
 		List<Transferencia> listaTransferencias = transferenciaRepo.findAllByContaOrigemOrderByDataTransferenciaDesc(contaOrigem);
 		if(listaTransferencias.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transfêrencias feitas por este cliente não foram encontradas na base de dados.");
@@ -33,6 +33,7 @@ public class TransferenciaService {
 		return listaTransferencias;
 	}
 
+	//@Transactional
 	public Transferencia efetuaTransferenciaContas(Transferencia transferencia) {
 
 		Cliente clienteOrigem = clienteService.buscarClientePorNumeroConta(transferencia.getContaOrigem());

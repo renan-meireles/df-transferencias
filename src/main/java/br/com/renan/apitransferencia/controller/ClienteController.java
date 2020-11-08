@@ -3,6 +3,8 @@ package br.com.renan.apitransferencia.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
 @Tag(name = "Cliente", description = "Endpoints com as operações ref. cadastro de clientes e buscas de clientes")
 public class ClienteController {
 
@@ -39,8 +41,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "500", description = "Já existe um Cliente cadastrado com o numero de conta: {numeroConta}") })
 	@PostMapping
 	public ResponseEntity<Cliente> adicionarCliente(
-			@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Cliente para cadastrar. Não pode ser nulo ou vazio.", content = @Content(schema = @Schema(implementation = Cliente.class)), required = true) @RequestBody Cliente cliente)
-			throws Exception {
+			@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Cliente para cadastrar. Não pode ser nulo ou vazio.", content = @Content(schema = @Schema(implementation = Cliente.class)), required = true) @RequestBody @Valid Cliente cliente) {
 
 		Cliente clienteRegistrado = clienteService.cadastrarCliente(cliente);
 
@@ -77,7 +78,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "404", description = "Cliente Conta Nº: {numeroConta} não encontrado na base de dados.") })
 	@GetMapping("/account/{numeroConta}")
 	public ResponseEntity<Cliente> buscaPorConta(
-			@Parameter(description = "Numero da Conta do Cliente. Deve ser informado.", required = true) @PathVariable Long numeroConta) {
+			@Parameter(description = "Numero da Conta do Cliente. Deve ser informado.", required = true) @PathVariable String numeroConta) {
 
 		return ResponseEntity.ok().body(clienteService.buscarClientePorNumeroConta(numeroConta));
 	}

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.Data;
 
@@ -21,10 +22,10 @@ public class Transferencia {
 	private Long id;
 	
 	@Column(nullable = false)
-	private Long contaOrigem;
+	private String contaOrigem;
 	
 	@Column(nullable = false)
-	private Long contaDestino;
+	private String contaDestino;
 	
 	@Column(nullable = false)
 	private double valorTransferencia;
@@ -37,5 +38,8 @@ public class Transferencia {
 	
 	@Column
 	private String detalhes;
+	
+	@Version
+    private Long version;
 
 }

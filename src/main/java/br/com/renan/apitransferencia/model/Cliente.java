@@ -6,11 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 
 import lombok.Data;
 
 @Entity
-@Table
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"numeroConta"})})
 @Data
 public class Cliente {
 
@@ -22,9 +24,12 @@ public class Cliente {
 	private String nome;
 	
 	@Column(nullable = false)
-	private Long numeroConta;
+	private String numeroConta;
 	
 	@Column(nullable = false)
 	private double saldoConta;
+	
+	@Version
+    private Long version;
 	
 }
