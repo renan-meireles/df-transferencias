@@ -34,7 +34,8 @@ Case - API Transfêrencia
     <br>&emsp;}
 <br>]
 
-  	<h4>POST</h4>
+
+<h4>POST</h4>
     <pre><code>/api/v1/customers - Cadastra um novo Cliente no sistema</code></pre>
     <p><strong>Exemplo de Request Body</strong></p>
 
