@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.renan</groupId>
 	<artifactId>df-transferencias</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>df-transferencias</name>
 	<description>API REST para Transfêrencias</description>
 
@@ -66,6 +66,13 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.2.32</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.1.Final</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

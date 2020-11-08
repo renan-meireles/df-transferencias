@@ -38,7 +38,8 @@ public class ClienteController {
 			"cliente" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Cliente cadastrado com sucesso", content = @Content(schema = @Schema(implementation = Cliente.class))),
-			@ApiResponse(responseCode = "500", description = "Já existe um Cliente cadastrado com o numero de conta: {numeroConta}") })
+			@ApiResponse(responseCode = "400", description = "Campos obrigatórios não informados corretamente", content = @Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "500", description = "Já existe um Cliente cadastrado com o numero de conta: {numeroConta}", content = @Content(schema = @Schema(hidden = true))) })
 	@PostMapping
 	public ResponseEntity<Cliente> adicionarCliente(
 			@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Cliente para cadastrar. Não pode ser nulo ou vazio.", content = @Content(schema = @Schema(implementation = Cliente.class)), required = true) @RequestBody @Valid Cliente cliente) {
@@ -64,7 +65,7 @@ public class ClienteController {
 			"cliente" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = @Content(schema = @Schema(implementation = Cliente.class))),
-			@ApiResponse(responseCode = "404", description = "Cliente ID: {id} não encontrado na base de dados.") })
+			@ApiResponse(responseCode = "404", description = "Cliente ID: {id} não encontrado na base de dados.", content = @Content(schema = @Schema(hidden = true))) })
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> buscaPorId(
 			@Parameter(description = "ID do Cliente. Deve ser informado.", required = true) @PathVariable Long id) {
@@ -75,7 +76,7 @@ public class ClienteController {
 			"cliente" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = @Content(schema = @Schema(implementation = Cliente.class))),
-			@ApiResponse(responseCode = "404", description = "Cliente Conta Nº: {numeroConta} não encontrado na base de dados.") })
+			@ApiResponse(responseCode = "404", description = "Cliente Conta Nº: {numeroConta} não encontrado na base de dados.", content = @Content(schema = @Schema(hidden = true))) })
 	@GetMapping("/account/{numeroConta}")
 	public ResponseEntity<Cliente> buscaPorConta(
 			@Parameter(description = "Numero da Conta do Cliente. Deve ser informado.", required = true) @PathVariable String numeroConta) {

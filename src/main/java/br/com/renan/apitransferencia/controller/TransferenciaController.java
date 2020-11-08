@@ -2,6 +2,8 @@ package br.com.renan.apitransferencia.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.renan.apitransferencia.model.Transferencia;
 import br.com.renan.apitransferencia.service.TransferenciaService;
@@ -34,10 +37,12 @@ public class TransferenciaController {
 			"transferencia" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Transfêrencia efetuada com sucesso", content = @Content(schema = @Schema(implementation = Transferencia.class))),
-			@ApiResponse(responseCode = "500", description = "'Transfêrencia não efetuada - Motivo: Valor acima do maximo permitido R$ 1.000,00' ou 'Transfêrencia não efetuada - Motivo: Saldo Insuficiente'") })
+			@ApiResponse(responseCode = "400", description = "Campos obrigatórios não informados corretamente", content = @Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "404", description = "Cliente Conta Nº: {numeroConta} não encontrado na base de dados.", content = @Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "500", description = "'Transfêrencia não efetuada - Motivo: Valor acima do maximo permitido R$ 1.000,00' ou 'Transfêrencia não efetuada - Motivo: Saldo Insuficiente'", content = @Content(schema = @Schema(hidden = true))) })
 	@PostMapping
 	public ResponseEntity<Transferencia> efetuarTransferencia(
-			@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Informações para efetuar a transfêrencia. Não pode ser nulo ou vazio.", content = @Content(schema = @Schema(implementation = Transferencia.class)), required = true) @RequestBody Transferencia transferencia) {
+			@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Informações para efetuar a transfêrencia. Não pode ser nulo ou vazio.", content = @Content(schema = @Schema(implementation = Transferencia.class)), required = true) @RequestBody @Valid Transferencia transferencia) throws ResponseStatusException {
 		return ResponseEntity.ok().body(transferenciaService.efetuaTransferenciaContas(transferencia));
 	}
 
@@ -45,7 +50,7 @@ public class TransferenciaController {
 			"transferencia" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Transferencia.class)))),
-			@ApiResponse(responseCode = "404", description = "Transfêrencias feitas por este cliente não foram encontradas na base de dados.") })
+			@ApiResponse(responseCode = "404", description = "Transfêrencias feitas por este cliente não foram encontradas na base de dados.", content = @Content(schema = @Schema(hidden = true))) })
 	@GetMapping("/account/{contaOrigem}")
 	public ResponseEntity<List<Transferencia>> buscaPorConta(
 			@Parameter(description = "Numero da Conta do Cliente de Origem da transfêrencia. Deve ser informado.", required = true) @PathVariable String contaOrigem) {

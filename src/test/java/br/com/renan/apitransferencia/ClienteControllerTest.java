@@ -58,6 +58,36 @@ public class ClienteControllerTest {
 	}
 	
 	@Test
+	public void deveCadastrarClienteNomeCampoObrigatorioNaoInformadoRetorna400() {
+		clienteRepo.deleteAll();
+		cliente1.setNome(null);
+		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/customers", cliente1, String.class);
+		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400);
+		clienteRepo.deleteAll();
+
+	}
+	
+	@Test
+	public void deveCadastrarClienteContaCampoObrigatorioNaoInformadoRetorna400() {
+		clienteRepo.deleteAll();
+		cliente1.setNumeroConta(" ");
+		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/customers", cliente1, String.class);
+		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400);
+		clienteRepo.deleteAll();
+
+	}
+	
+	@Test
+	public void deveCadastrarClienteSaldoCampoObrigatorioNaoInformadoRetorna400() {
+		clienteRepo.deleteAll();
+		cliente1.setSaldoConta(null);
+		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/customers", cliente1, String.class);
+		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400);
+		clienteRepo.deleteAll();
+
+	}
+	
+	@Test
 	public void deveCadastrarClienteJaExistenteRetorna500() {
 		clienteRepo.deleteAll();
 		clienteRepo.save(cliente1);

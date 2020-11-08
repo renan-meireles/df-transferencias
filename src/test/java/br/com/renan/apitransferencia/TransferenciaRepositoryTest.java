@@ -1,5 +1,6 @@
 package br.com.renan.apitransferencia;
 
+import java.util.Date;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
@@ -37,16 +38,19 @@ public class TransferenciaRepositoryTest {
 		transf = new Transferencia();
 		transf.setContaOrigem("010123400");
 		transf.setContaDestino("010123401");
+		transf.setDataTransferencia(new Date());
 		transf.setValorTransferencia(110.00);
 
 		transf2 = new Transferencia();
 		transf2.setContaOrigem("010123400");
 		transf2.setContaDestino("010123401");
+		transf2.setDataTransferencia(new Date());
 		transf2.setValorTransferencia(3.99);
 
 		transf3 = new Transferencia();
 		transf3.setContaOrigem("010123401");
 		transf3.setContaDestino("010123400");
+		transf3.setDataTransferencia(new Date());
 		transf3.setValorTransferencia(17.00);
 	}
 

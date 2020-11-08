@@ -67,6 +67,27 @@ public class TransferenciaControllerTest {
 	}
 	
 	@Test
+	public void deveEfetuarTransferenciaCampoObrigatorioContaOrigemNaoInformadoRetorna400(){
+		transf.setContaOrigem(" ");
+		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/transferences", transf, String.class);
+		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400); 
+	}
+	
+	@Test
+	public void deveEfetuarTransferenciaCampoObrigatorioContaDestinoNaoInformadoRetorna400(){
+		transf.setContaDestino(null);
+		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/transferences", transf, String.class);
+		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400); 
+	}
+	
+	@Test
+	public void deveEfetuarTransferenciaCampoObrigatorioValorNaoInformadoRetorna400(){
+		transf.setValorTransferencia(null);
+		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/transferences", transf, String.class);
+		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400); 
+	}
+	
+	@Test
 	public void deveEfetuarTransferenciaSemSucessoRetorna404(){
 		transf.setContaOrigem("010101010");
 		ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/transferences", transf, String.class);

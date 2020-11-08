@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -151,6 +152,16 @@ public class ClienteServiceTest {
 
 		Assertions.assertThat(clienteResponse.getSaldoConta()).isEqualTo(cliente.getSaldoConta() + 111.99);
 		System.out.println(clienteResponse.getVersion());
+	}
+	
+	@Test(expected = ObjectOptimisticLockingFailureException.class)
+	public void testaConcorrenciaAtualizarSaldo() {
+		Cliente cliente1 = clienteRepo.findByNumeroConta(cliente.getNumeroConta()).get();
+		cliente1.setSaldoConta(10.00);
+		Cliente cliente2 = clienteRepo.findByNumeroConta(cliente.getNumeroConta()).get();
+		cliente1.setSaldoConta(99.99);
+		clienteRepo.save(cliente1);
+		clienteRepo.save(cliente2);
 	}
 
 	@After
