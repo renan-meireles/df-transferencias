@@ -103,7 +103,8 @@ Case - API Transfêrencia
         <br>"version": 0
 <br>}
 
-  	<h4>GET</h4>
+  
+<h4>GET</h4>
   	<pre><code>/api/v1/transferences/account/{contaOrigem} - Busca todas as transfêrencias feitas pelo Cliente informado</code></pre>
   	<p><strong>Exemplo de Response Body (200)</strong></p>
   	
