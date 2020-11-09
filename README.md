@@ -6,6 +6,10 @@ Case - API Transfêrencia
 
 <p>Na configuração padrão da aplicação, caso a porta não seja alterada no application.properties: <a href="http://localhost:9876/swagger-ui.html" rel="nofollow">http://localhost:8888/swagger-ui.html</a></p>
 
+* Versão Java Utilizada: 11 
+* Testes executados com JUnit4
+* Versão Springboot: 2.3.5
+
 <h3>Current version of API is v1</h3>
 
 
