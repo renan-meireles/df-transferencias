@@ -55,7 +55,8 @@ public class ClienteController {
 	@Operation(summary = "Busca Clientes Cadastrados", description = "Busca todos os clientes cadastrados.", tags = {
 			"cliente" })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Cliente.class)))) })
+			@ApiResponse(responseCode = "200", description = "Busca realizada com sucesso", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Cliente.class)))),
+			@ApiResponse(responseCode = "404", description = "Não existem clientes cadastrados na base de dados.", content = @Content(schema = @Schema(hidden = true))) })
 	@GetMapping
 	public ResponseEntity<List<Cliente>> listaClientes() {
 		return ResponseEntity.ok().body(clienteService.buscarTodosClientes());
